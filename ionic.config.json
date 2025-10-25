@@ -1,0 +1,7 @@
+{
+  "name": "Empath_AI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
