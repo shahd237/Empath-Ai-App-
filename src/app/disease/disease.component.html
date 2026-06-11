@@ -1,0 +1,106 @@
+<ion-content class="ion-padding">
+
+  <!-- Animated Stars Background -->
+  <div class="stars-layer"></div>
+
+  <div class="disease-wrapper" dir="rtl">
+    <section class="disease-card">
+
+      <!-- Header -->
+      <header class="card-header">
+        <h1>هل تعاني من أي من الأمراض المزمنة التالية؟</h1>
+        <p>يرجى اختيار جميع ما ينطبق عليك</p>
+      </header>
+
+      <ion-list>
+
+        <!-- Question 1 -->
+        <div class="question-box">
+          <p class="question-title">هل تعاني من مرض السكري ؟</p>
+          <div class="radio-buttons">
+            <button class="radio-pill" [class.active]="disabute=='yes'" (click)="disabute='yes'">نعم</button>
+            <button class="radio-pill" [class.active]="disabute=='no'" (click)="disabute='no'">لا</button>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-box">
+          <p class="question-title">هل تعاني من مرض ارتفاع ضغط الدم (الضغط) ؟</p>
+          <div class="radio-buttons">
+            <button class="radio-pill" [class.active]="hypertension=='yes'" (click)="hypertension='yes'">نعم</button>
+            <button class="radio-pill" [class.active]="hypertension=='no'" (click)="hypertension='no'">لا</button>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-box">
+          <p class="question-title">هل تعاني من أمراض القلب ؟</p>
+          <div class="radio-buttons">
+            <button class="radio-pill" [class.active]="heartdisease=='yes'" (click)="heartdisease='yes'">نعم</button>
+            <button class="radio-pill" [class.active]="heartdisease=='no'" (click)="heartdisease='no'">لا</button>
+          </div>
+        </div>
+
+
+        <!--Question 4 -->
+        <div class="question-box">
+          <p class="question-title">هل تم تشخصيك بمرض نفسي مسبقأ ؟</p>
+          <div class="radio-buttons">
+            <button class="radio-pill" [class.active]="mental_illness=='yes'" (click)="mental_illness='yes'">نعم</button>
+            <button class="radio-pill" [class.active]="mental_illness=='no'" (click)="mental_illness='no'">لا</button>
+
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-box">
+          <p class="question-title">هل تقوم بالتدخين ؟</p>
+          <div class="radio-buttons">
+            <button class="radio-pill" [class.active]="smoking=='yes'" (click)="smoking='yes'">نعم</button>
+            <button class="radio-pill" [class.active]="smoking=='no'" (click)="smoking='no'">لا</button>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="question-box">
+          <ion-textarea placeholder="ملاحظات" auto-grow="true" class="custom-textarea" [(ngModel)]="notes"></ion-textarea>
+        </div>
+
+      </ion-list>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <ion-button [disabled]="!allanswered()" (click)="submitmedicalReport()" class="next-btn">
+          التالي
+          <ion-icon slot="end" name="arrow-back-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button [routerLink]="['/Login']" fill="clear" class="prev-btn">
+          السابق
+          <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+    </section>
+  </div>
+
+
+
+  <!-- ✅ Custom Toast Notification -->
+<div class="custom-toast" [class.show]="toastVisible" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+  <div class="toast-icon">
+    <svg *ngIf="toastType === 'success'" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M7 12.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <svg *ngIf="toastType === 'error'" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M12 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="12" cy="17" r="1" fill="currentColor"/>
+    </svg>
+  </div>
+  <span class="toast-message">{{ toastMessage }}</span>
+  <div class="toast-progress"></div>
+</div>
+
+</ion-content>

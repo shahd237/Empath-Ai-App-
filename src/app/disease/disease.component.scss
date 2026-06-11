@@ -1,0 +1,206 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+.disease-wrapper {
+  max-width: 420px;
+  margin: auto;
+  z-index: 1;
+}
+.disease-card {
+  background: #7ca382;
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 0.6s ease forwards;
+  margin-top: 70px;
+}
+
+/* Header */
+.card-header {
+  text-align: center;
+  margin-bottom: 25px;
+
+  h1 {
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+  }
+  p {
+    font-size: 20px;
+    color: #cfecec;
+  }
+}
+
+/* Question box */
+.question-box {
+  margin-bottom: 18px;
+}
+
+.question-title {
+  font-size: 14px;
+  color: #6d9573;
+  margin-bottom: 8px;
+}
+
+/* Radio buttons pill style */
+.radio-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.radio-pill {
+  background: #dde5d8;
+  border-radius: 999px;
+  padding: 10px 20px;
+  min-width: 60px;
+  text-align: center;
+  color: #4f5f55;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.radio-pill.active {
+  background: #6f8f6b;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Textarea */
+.custom-textarea {
+  --background: #dde5d8;
+  // --border-radius: 999px;
+  color: #4f5f55;
+  font-size: 14px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.custom-textarea:focus {
+  box-shadow: 0 0 8px #6f8f6b;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.next-btn {
+  --background: #6f8f6b;
+  --border-radius: 999px;
+  height: 56px;
+  font-size: 15px;
+}
+
+.prev-btn {
+  font-size: 15px;
+  color: #fff;
+}
+
+/* Stars background */
+.stars-layer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, #ffffff10 1px, transparent 1px);
+  background-size: 10px 10px;
+  animation: moveStars 20s linear infinite;
+  z-index: 0;
+}
+
+/* Animations */
+@keyframes moveStars {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 1000px; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
+
+
+
+// ✅ Custom Toast
+.custom-toast {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  min-width: 280px;
+  max-width: 340px;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+
+  &.show {
+    top: 32px;
+  }
+
+  &.toast-success {
+    background: rgba(0, 200, 100, 0.15);
+    color: #00c864;
+    border-color: rgba(0, 200, 100, 0.3);
+
+    .toast-progress {
+      background: #00c864;
+    }
+  }
+
+  &.toast-error {
+    background: rgba(255, 61, 61, 0.15);
+    color: #ff3d3d;
+    border-color: rgba(255, 61, 61, 0.3);
+
+    .toast-progress {
+      background: #ff3d3d;
+    }
+  }
+}
+
+.toast-icon {
+  flex-shrink: 0;
+  svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.toast-message {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  direction: rtl;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  border-radius: 0 0 16px 16px;
+  animation: toastProgress 3s linear forwards;
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to   { width: 0%; }
+}

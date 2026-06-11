@@ -1,0 +1,35 @@
+
+
+<ion-content class="ion-padding">
+
+  <div class="page">
+
+    <ion-card class="card">
+
+      <ion-card-content>
+
+        <p class="text">
+          أدخل بريدك الإلكتروني لاستعادة كلمة المرور
+        </p>
+
+        <ion-item lines="none" class="input-box">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input
+            type="email"
+            placeholder="البريد الإلكتروني"
+            [(ngModel)]="email"
+            name="email">
+          </ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="signup-btn" [disabled]="!email" (click)="sendEmail()" style="--background:#2f6f5e ;">
+          استعادة كلمة المرور
+        </ion-button>
+
+      </ion-card-content>
+
+    </ion-card>
+
+  </div>
+
+</ion-content>

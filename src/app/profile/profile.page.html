@@ -1,0 +1,149 @@
+<ion-content class="profile-page ion-padding">
+  <!-- Header -->
+  <div class="profile-header">
+    <ion-button fill="outline" color="danger" class="logout-btn" (click)="logout()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      تسجيل الخروج
+    </ion-button>
+    <!-- <h1 class="app-name">My Profile</h1> -->
+    <div class="avatar" style="margin-top: 10%;">
+      <img [src]="userData?.image_URl||'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'" alt="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" /> <!--Property Binding -->
+ 
+    </div>
+    <h2 class="username">{{userData?.first_Name}}</h2> <!-- Data Binding -->
+    <p class="role">{{userData?.email}}</p>
+    <div class="self-care-level">
+      <span class="level filled"></span>
+      <span class="level filled"></span>
+      <span class="level semi"></span>
+      <span class="level empty"></span>
+    </div>
+  </div>
+
+
+  <div class="dashboard-card" [routerLink]="['/dashboard']">
+
+  <div class="watch-icon">
+    <svg viewBox="0 0 100 100">
+
+      <!-- الساعة -->
+      <circle cx="50" cy="50" r="35" stroke="#2f6f5e" stroke-width="4" fill="none"/>
+
+      <!-- نبض القلب -->
+      <polyline class="heartbeat"
+        points="20,50 35,50 40,40 45,60 50,45 55,55 60,50 80,50"
+        fill="none"
+        stroke="#2f6f5e"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    </svg>
+  </div>
+
+  <div class="dashboard-text">
+    <h3>Health Dashboard</h3>
+    <p>عرض بيانات الساعة الذكية والصحة</p>
+  </div>
+
+  <ion-icon name="chevron-forward-outline"></ion-icon>
+
+</div>
+  <!-- Action Buttons -->
+  <div class="profile-actions">
+    <ion-button
+      expand="block"
+      fill="outline"
+      style="background: #2f6f5e; color: #fff ;margin-top: 8%;"
+      [routerLink]="['/chatbot']"
+    >
+      <ion-icon slot="start" name="mic-outline"></ion-icon>
+      ابدأالجلسة
+    </ion-button>
+    <ion-button expand="block" fill="outline" style="color: #000"[routerLink]="['/edit']">
+      <ion-icon slot="start" name="pencil-outline"></ion-icon>
+      تعديل الملف الشخصي
+    </ion-button>
+  </div>
+
+  <!-- Daily Tips -->
+  <div class="daily-tips">
+    <div class="tip">
+      <ion-icon name="bulb-outline"></ion-icon>
+      <p>نصائح يومية لتحسين المزاج</p>
+    </div>
+    <div class="tip">
+      <ion-icon name="happy-outline"></ion-icon>
+      <p>نصائح يومية لتحسين المزاج</p>
+    </div>
+  </div>
+
+   <button class="delete-btn" (click)="deleteAccount()">
+   <ion-icon name="trash-outline"></ion-icon>
+  حذف الحساب
+  </button>
+
+  <!-- Bottom Navigation -->
+  <ion-footer>
+    <div class="footer-buttons">
+      <ion-button class="footer-btn" [routerLink]="['/setting']">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button class="footer-btn">
+        <ion-icon name="heart"></ion-icon>
+      </ion-button>
+
+      <ion-button class="footer-btn" [routerLink]="['/home']">
+        <ion-icon name="home"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-footer>
+
+   <!-- Custom Confirm Dialog -->
+  <div class="confirm-overlay" [class.show]="confirmVisible">
+    <div class="confirm-box">
+      <div class="confirm-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="11" stroke="#e74c3c" stroke-width="1.5"/>
+          <path d="M12 7v6" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="17" r="1" fill="#e74c3c"/>
+        </svg>
+      </div>
+      <h3 class="confirm-title">حذف الحساب</h3>
+      <p class="confirm-msg">هل أنتِ متأكد؟ هذا الإجراء لا يمكن التراجع عنه.</p>
+      <div class="confirm-buttons">
+        <button class="confirm-cancel" (click)="cancelDelete()">إلغاء</button>
+        <button class="confirm-delete" (click)="confirmDelete()" [disabled]="confirmLoading">
+          <span *ngIf="!confirmLoading">حذف</span>
+          <span *ngIf="confirmLoading" class="spinner"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Toast -->
+  <div class="custom-toast"
+    [class.show]="toastVisible"
+    [class.toast-success]="toastType === 'success'"
+    [class.toast-error]="toastType === 'error'">
+    <div class="toast-icon">
+      <svg *ngIf="toastType === 'success'" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M7 12.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg *ngIf="toastType === 'error'" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M12 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="17" r="1" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="toast-text">
+      <p class="toast-title">{{ toastMessage }}</p>
+      <p class="toast-sub">{{ toastSubMessage }}</p>
+    </div>
+    <div class="toast-bar"></div>
+  </div>
+</ion-content>
+

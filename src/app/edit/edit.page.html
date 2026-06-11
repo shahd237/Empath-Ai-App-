@@ -1,0 +1,117 @@
+<ion-header class="ion-no-border">
+  <div class="profile-header">
+    <div class="header-row">
+      <button class="btn-top" (click)="save()">حفظ</button>
+      <h1 class="header-title">تعديل الملف الشخصي</h1>
+      <button class="btn-nav" (click)="goBack()">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar-circle">
+  <img
+    *ngIf="profile.photoUrl; else iconFallback"
+    [src]="profile.photoUrl"
+    alt="User Avatar"
+    class="avatar-image"
+  />
+  <ng-template #iconFallback>
+    <ion-icon name="person-outline"></ion-icon>
+  </ng-template>
+</div>
+        <button class="camera-btn" (click)="changePhoto()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </button>
+      </div>
+      <span class="avatar-label">تغيير الصورة الشخصية</span>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="page-content">
+
+  <!-- Personal Info -->
+  <div class="section">
+    <div class="section-label">المعلومات الشخصية</div>
+    <div class="card">
+
+      <div class="card-item">
+        <button class="btn-edit" (click)="editField('firstName')">تعديل</button>
+        <div class="field-content">
+          <div class="field-label">الاسم الأول</div>
+          <div class="field-value arabic">{{ profile.firstName }}</div>
+        </div>
+        <div class="field-icon">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="card-item">
+        <button class="btn-edit" (click)="editField('lastName')">تعديل</button>
+        <div class="field-content">
+          <div class="field-label">اسم العائلة</div>
+          <div class="field-value arabic">{{ profile.lastName }}</div>
+        </div>
+        <div class="field-icon">
+          <ion-icon name="people-outline"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="section">
+    <div class="section-label">بيانات التواصل</div>
+    <div class="card">
+
+      <div class="card-item">
+        <button class="btn-edit" (click)="editField('phone')">تعديل</button>
+        <div class="field-content">
+          <div class="field-label">رقم الهاتف</div>
+          <div class="field-value ltr">{{ profile.phone }}</div>
+        </div>
+        <div class="field-icon">
+          <ion-icon name="call-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="card-item">
+        <button class="btn-edit" (click)="editField('email')">تعديل</button>
+        <div class="field-content">
+          <div class="field-label">البريد الإلكتروني</div>
+          <div class="field-value ltr">{{ profile.email }}</div>
+        </div>
+        <div class="field-icon">
+          <ion-icon name="mail-outline"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Emergency -->
+  <div class="section">
+    <div class="section-label">الطوارئ</div>
+    <div class="card emergency">
+      <div class="card-item">
+        <button class="btn-edit emergency-edit" (click)="editField('emergencyPhone')">تعديل</button>
+        <div class="field-content">
+          <div class="field-label">رقم الطوارئ</div>
+          <div class="field-value ltr">{{ profile.emergencyPhone }}</div>
+        </div>
+        <div class="field-icon emergency-icon">
+          <ion-icon name="pulse-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save Button -->
+  <div class="section">
+    <button class="btn-save-main" (click)="saveChanges()">حفظ التغييرات</button>
+  </div>
+
+</ion-content>

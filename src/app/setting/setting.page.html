@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>⚙️ الأعدادات</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+<!-- 🌙 Theme -->
+<div class="mode-container">
+  <div class="mode-card dark" style="background: #1a242f; color: #fff;">
+    <img src="assets/images/dark-theme-background-4hywnt6qgnals7h7.jpg" />
+    <h3>Dark Mode</h3>
+    <ion-toggle
+      [checked]="darkMode"
+      (ionChange)="toggleTheme(true)">
+    </ion-toggle>
+  </div>
+
+  <div class="mode-card light">
+    <img src="assets/images/Sun-clouds.webp" />
+    <h3>Light Mode</h3>
+    <ion-toggle
+      [checked]="lightMode"
+      (ionChange)="toggleTheme(false)">
+    </ion-toggle>
+  </div>
+</div>
+
+<!-- ⌚ Bluetooth -->
+<div class="music-card">
+  <div class="music-header">
+    <div class="music-title">
+      <h3 style="color: #000;">توصيل بالساعة 🔵</h3>
+    </div>
+
+    <ion-toggle
+      [checked]="isBluetoothOn"
+      (ionChange)="handleToggle($event)">
+    </ion-toggle>
+  </div>
+
+  <div *ngIf="deviceName">
+    <p>تم الاتصال بـ: {{ deviceName }}</p>
+  </div>
+</div>
+
+<!-- 🔐 Change Password -->
+<div class="history-card" [routerLink]="['/change']">
+  <h4 style="color: #000;">تعديل كلمة المرور</h4>
+</div>
+
+<!-- 📊 Sensor Data -->
+<div class="sensor-container" *ngIf="sensorData">
+
+  <h2 class="section-title">📡 Sensor Data</h2>
+
+  <div class="sensor-grid">
+
+    <!-- ❤️ Heart Rate -->
+    <div class="sensor-card">
+      <h4>❤️ BPM</h4>
+      <p>{{ sensorData?.['bpm'] ?? '—' }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>💓 Avg BPM</h4>
+      <p>{{ sensorData?.['avgBpm'] ?? '—' }}</p>
+    </div>
+
+    <!-- Other sensors -->
+    <div class="sensor-card">
+      <h4>🚨 Fall</h4>
+      <p>{{ sensorData?.['fallDetected'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>👣 Steps</h4>
+      <p>{{ sensorData?.['stepCount'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>🧠 Stress Level</h4>
+      <p>{{ sensorData?.['stressLevel'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>📊 Stress Score</h4>
+      <p>{{ sensorData?.['stressScore'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>📡 GSR</h4>
+      <p>{{ sensorData?.['gsrStatus'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>⚡ Magnitude</h4>
+      <p>{{ sensorData?.['magnitude'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>📈 Accel X</h4>
+      <p>{{ sensorData?.['accelX'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>📈 Accel Y</h4>
+      <p>{{ sensorData?.['accelY'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>📈 Accel Z</h4>
+      <p>{{ sensorData?.['accelZ'] }}</p>
+    </div>
+
+    <div class="sensor-card">
+      <h4>🧍 Behavior</h4>
+      <p>{{ sensorData?.['behavioralState'] }}</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 🔁 عرض كل البيانات -->
+<div *ngIf="sensorData && (sensorData | keyvalue)?.length">
+  <h3>All Data</h3>
+
+  <div *ngFor="let item of sensorData | keyvalue">
+    <strong>{{ item.key }}</strong> : {{ item.value }}
+  </div>
+</div>
+
+</ion-content>

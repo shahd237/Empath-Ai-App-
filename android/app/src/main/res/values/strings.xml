@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Empath_AI</string>
+    <string name="title_activity_main">Empath_AI</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
+
+    <!-- ✅ Replace with your real values from Meta Developer Dashboard -->
+    <string name="facebook_app_id">1846725225845517</string>
+    <string name="facebook_client_token">ba36b99c5e256ea318e08d4be13bcb95</string>
+    <string name="fb_login_protocol_scheme">fb1846725225845517</string>
+    <!-- example: if app id = 123456789 → fb123456789 -->
+
+</resources>

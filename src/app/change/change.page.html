@@ -1,0 +1,49 @@
+
+<ion-content class="ion-padding">
+
+<div class="password-card">
+
+  <div class="icon-box">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="11" width="18" height="11" rx="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+  </div>
+
+  <h2>تغيير كلمة المرور</h2>
+
+  <ion-item>
+    <ion-input
+      name="currentPassword"
+      type="password"
+      placeholder="كلمة المرور الحالية"
+      [(ngModel)]="currentPassword">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input
+     name="newPassword"
+      type="password"
+      placeholder="كلمة المرور الجديدة"
+      [(ngModel)]="newPassword">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input
+     name="confirmPassword"
+      type="password"
+      placeholder="تأكيد كلمة المرور"
+      [(ngModel)]="confirmPassword">
+    </ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="changePassword()" style="--background:#6d9573">
+    حفظ التغيير
+  </ion-button>
+
+</div>
+
+
+</ion-content>

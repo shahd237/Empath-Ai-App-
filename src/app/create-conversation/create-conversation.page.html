@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar class="create-toolbar" style=" --background: #6d9573">
+    <ion-title>محادثة جديدة</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="create-page ion-padding">
+
+  <div class="create-container">
+
+    <!-- Lottie animation -->
+    <div #lottieContainer id="lottie-container" style="width: 100%; height: 100%;"></div>
+
+    <!-- Title -->
+    <h1 class="main-title">
+      مهم جدااااا
+    </h1>
+
+    <p class="instruction-text">
+  عشان تقدر تبدأ تتكلم مع 
+  <span class="ai-name">Empath-AI</span>
+  لازم تضغط على علامة 
+  <span class="plus-icon">➕</span>
+  أولاً
+</p>
+
+    <!-- Input -->
+    <!-- <div class="input-container">
+      <ion-input
+        [(ngModel)]="title"
+        placeholder="اكتب عنوان المحادثة...">
+      </ion-input>
+    </div> -->
+
+    <!-- Button -->
+    <ion-button expand="block" class="create-btn" [routerLink]="['/before-chatbot']">
+      ✨ فهمت ذلك
+    </ion-button>
+
+  </div>
+
+</ion-content>

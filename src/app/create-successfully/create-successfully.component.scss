@@ -1,0 +1,124 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+
+.success-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f4ee;
+  overflow: hidden;
+}
+
+.particles-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.success-wrapper {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.success-card {
+  text-align: center;
+  padding: 32px 24px;
+  width: 90%;
+  max-width: 420px;
+  background: #6d9573;
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  animation: cardEnter 0.9s ease forwards;
+}
+
+
+.brain-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  transform: translateX(-120vw) scale(0.85);
+  opacity: 0;
+
+  /* أبطأ شوية */
+  animation: brainSlideSmooth 3s cubic-bezier(0.25, 0.1, 0.36, 1) forwards;
+}
+
+.brain-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+
+  animation: brainPulse 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes brainSlideSmooth {
+  0% {
+    transform: translateX(-120vw) scale(0.85);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(35px) scale(1.05);
+    opacity: 1;
+  }
+
+  82% {
+    transform: translateX(-10px) scale(0.99);
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes brainPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+}
+
+
+
+.success-title {
+  color: #fff;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.success-sub {
+  color: #f6f4ee;
+  font-size: 15px;
+}
+
+.login-btn {
+  margin-top: 26px;
+  --background: #6d9573;
+  border-radius: 16px;
+}
+
+

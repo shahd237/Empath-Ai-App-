@@ -1,0 +1,372 @@
+/* ============================================================
+   dashboard.page.scss
+   Light mode: UNCHANGED (all original styles kept)
+   Dark mode: added at the bottom only
+   ============================================================ */
+
+* { padding: 0; margin: 0; box-sizing: border-box; }
+
+$primary-bg:     linear-gradient(135deg, #1a5f3f 0%, #0d3322 50%, #051a10 100%);
+$card-bg:        rgba(255, 255, 255, 0.08);
+$card-border:    rgba(255, 255, 255, 0.15);
+$accent-red:     #ff4757;
+$accent-orange:  #ff9500;
+$accent-cyan:    #00d4ff;
+$accent-green:   #00ff88;
+$text-primary:   #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.7);
+
+/* ── Animated Background ── */
+.health-dashboard-container {
+  min-height: 100vh;
+  background: $primary-bg;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  transition: background 0.4s ease;
+}
+
+.animated-background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+.sphere-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,255,136,0.3) 0%, transparent 70%);
+  top: -200px; right: -100px;
+  animation: float 20s infinite ease-in-out;
+}
+
+.sphere-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,212,255,0.3) 0%, transparent 70%);
+  bottom: -100px; left: -100px;
+  animation: float 15s infinite ease-in-out reverse;
+}
+
+.sphere-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,149,0,0.2) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 10s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -30px) scale(1.1); }
+  66%       { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 0.4; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* ── Main Content ── */
+.dashboard-content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Cards ── */
+.dashboard-card {
+  background: $card-bg;
+  backdrop-filter: blur(20px);
+  border: 1px solid $card-border;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+}
+
+.card-title {
+  color: $text-primary;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &.centered { text-align: center; justify-content: center; }
+}
+
+/* ── Top Row ── */
+.top-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+/* ── Heart / BPM ── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.1); }
+}
+
+.heart-icon-small { width: 24px; height: 24px; animation: heartbeat 1.5s infinite; }
+.heart-icon-large { width: 40px; height: 40px; animation: heartbeat 1s infinite; }
+.bpm-display      { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bpm-value        { font-size: 56px; font-weight: 800; color: $text-primary; line-height: 1; text-shadow: 0 2px 10px rgba(255,71,87,0.4); }
+.bpm-unit         { font-size: 20px; color: $text-secondary; font-weight: 500; align-self: flex-end; margin-bottom: 8px; }
+.reading-time     { color: $text-secondary; font-size: 14px; margin-top: 8px; }
+
+/* ── Smart Watch ── */
+.smart-watch-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.watch-body {
+  width: 220px; height: 220px;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #000 0%, #1a1a1a 100%);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+  }
+}
+
+.watch-screen { position: relative; z-index: 3; text-align: center; color: $text-primary; }
+
+.watch-heart-icon {
+  width: 48px; height: 48px; margin: 0 auto 12px;
+  animation: heartbeat 1.2s infinite;
+  svg { filter: drop-shadow(0 0 10px rgba(255,71,87,0.6)); }
+}
+
+.watch-bpm       { display: flex; align-items: baseline; justify-content: center; gap: 4px; margin-bottom: 8px; }
+.watch-bpm-value { font-size: 64px; font-weight: 800; line-height: 1; }
+.watch-bpm-unit  { font-size: 18px; color: $text-secondary; font-weight: 500; }
+
+.watch-status {
+  background: rgba(0,255,136,0.2);
+  color: $accent-green;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid rgba(0,255,136,0.3);
+  display: inline-block;
+}
+
+.watch-crown  { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); width: 16px; height: 40px; background: linear-gradient(90deg, #666 0%, #333 100%); border-radius: 0 8px 8px 0; }
+.watch-button { position: absolute; right: -8px; top: 30%; width: 8px; height: 30px; background: linear-gradient(90deg, #555 0%, #222 100%); border-radius: 0 4px 4px 0; }
+.watch-band-top, .watch-band-bottom { position: absolute; width: 140px; height: 80px; background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); left: 50%; transform: translateX(-50%); z-index: 1; border-radius: 20px; }
+.watch-band-top    { top: -40px;    border-radius: 20px 20px 0 0; }
+.watch-band-bottom { bottom: -40px; border-radius: 0 0 20px 20px; }
+
+/* ── Stress Card ── */
+.stress-value       { font-size: 42px; font-weight: 800; color: $accent-orange; margin-bottom: 4px; }
+.stress-description { color: $text-secondary; font-size: 14px; margin-bottom: 16px; }
+
+.stress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+    animation: shimmer 2s infinite;
+  }
+}
+
+.stress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff9500 0%, #ff6b35 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(255,149,0,0.5);
+  transition: width 1s ease;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── Middle Row ── */
+.middle-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+
+/* ── Health Score ── */
+.health-score-card {
+  .gauge-container { position: relative; height: 160px; display: flex; align-items: center; justify-content: center; }
+  .gauge-svg       { width: 100%; height: 100%; transform: rotate(-180deg);
+    .gauge-fill    { stroke-dashoffset: 251; animation: fill-gauge 4s ease-out forwards; }
+  }
+  .gauge-value     { position: absolute; bottom: 66px; text-align: center; opacity: 0; animation: fade-in 0.8s ease-out forwards; animation-delay: 1s; }
+  .score-number    { font-size: 56px; font-weight: 800; color: #00ff88; display: block; line-height: 1; transform: scale(0); animation: pop-up 0.8s ease-out forwards; animation-delay: 5s; }
+  .score-label     { background: linear-gradient(90deg, #00d4ff 0%, #00ff88 100%); color: #000; padding: 6px 20px; border-radius: 20px; font-size: 14px; font-weight: 700; margin-top: 12px; display: inline-block; opacity: 0; transform: translateY(30px); animation: slide-up 0.8s ease-out forwards; animation-delay: 5.8s; }
+}
+
+@keyframes fill-gauge { from { stroke-dashoffset: 251; } to { stroke-dashoffset: 80; } }
+@keyframes fade-in    { to { opacity: 1; } }
+@keyframes pop-up     { to { transform: scale(1); } }
+@keyframes slide-up   { to { transform: translateY(0); opacity: 1; } }
+
+/* ── HRV Face ── */
+.hrv-card          { display: flex; flex-direction: column; align-items: center; padding: 16px 12px; }
+.hrv-face-wrapper  { display: flex; justify-content: center; margin: 8px 0; }
+.hrv-face-svg      { width: 160px; height: 160px; }
+.face-anim-happy   { animation: faceHappyBounce 1.1s ease-in-out infinite; transform-origin: 80px 80px; }
+.face-anim-neutral { animation: faceNeutralPulse 2s ease-in-out infinite; }
+.face-anim-sad     { animation: faceSadDrop 2s ease-in-out infinite; transform-origin: 80px 80px; }
+.face-anim-angry   { animation: faceAngryShake 0.45s ease-in-out infinite; transform-origin: 80px 80px; }
+
+@keyframes faceHappyBounce  { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.04); } }
+@keyframes faceNeutralPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+@keyframes faceSadDrop       { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+@keyframes faceAngryShake    { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+
+.tear-1 { animation: tearFall 1.8s ease-in infinite; }
+.tear-2 { animation: tearFall 1.8s ease-in infinite 0.6s; }
+@keyframes tearFall { 0% { transform: translateY(0); opacity: 0.7; } 70% { transform: translateY(10px); opacity: 0.1; } 100% { transform: translateY(0); opacity: 0; } }
+
+.pulse-slow { animation: pulseRing 1.8s ease-out infinite; }
+.pulse-fast { animation: pulseRing 0.9s ease-out infinite; }
+@keyframes pulseRing { 0% { r: 54; opacity: 0.5; } 100% { r: 72; opacity: 0; } }
+
+.hrv-state-label { font-size: 15px; font-weight: 500; transition: color 0.3s; }
+.hrv-state-sub   { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.hrv-dots        { display: flex; gap: 8px; margin-top: 10px; }
+.hrv-dot         { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: background 0.3s;
+  &.active { background: rgba(255,255,255,0.85); }
+}
+
+/* ── Bottom Row ── */
+.bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.chart-card {
+  padding: 24px;
+  .chart-title     { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: $text-primary; }
+  .chart-container { height: 180px; position: relative; &.bar-chart { height: 160px; } }
+}
+
+.chart-labels { position: absolute; left: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 10px 0; font-size: 12px; color: $text-secondary; font-weight: 500; }
+.time-labels  { display: flex; justify-content: space-between; margin-top: 12px; padding: 0 10px; color: $text-secondary; font-size: 13px; font-weight: 500; }
+
+.activity-labels {
+  display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; color: $text-secondary; font-size: 14px; font-weight: 500;
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; margin-left: 12px;
+    &.rest     { background: #4fc3f7; }
+    &.activity { background: #29b6f6; }
+    &.sleep    { background: #039be5; }
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 968px) {
+  .top-row { grid-template-columns: 1fr; gap: 20px; }
+  .middle-row, .bottom-row { grid-template-columns: 1fr; }
+  .smart-watch-container { order: -1; margin-bottom: 20px; }
+  .watch-body { width: 180px; height: 180px; }
+  .watch-bpm-value { font-size: 48px; }
+}
+
+
+/* ============================================================
+   DARK MODE — added only, no light mode structure changed
+   ============================================================ */
+body[data-theme='dark'] {
+
+  /* ── Page background ── */
+  .health-dashboard-container {
+    background: linear-gradient(135deg, #0b141a 0%, #0d1f1a 60%, #071510 100%);
+  }
+
+  /* ── Animated spheres — tinted to match #00a884 palette ── */
+  .sphere-1 { background: radial-gradient(circle, rgba(0,168,132,0.18) 0%, transparent 70%); }
+  .sphere-2 { background: radial-gradient(circle, rgba(0,168,132,0.12) 0%, transparent 70%); }
+  .sphere-3 { background: radial-gradient(circle, rgba(0,168,132,0.08) 0%, transparent 70%); }
+
+  /* ── Cards — darkened glass ── */
+  .dashboard-card {
+    background: rgba(31, 44, 52, 0.85);
+    border-color: rgba(255,255,255,0.07);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+    &:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.65);
+    }
+  }
+
+  /* ── Card titles ── */
+  .card-title { color: #e9edef; }
+
+  /* ── BPM values ── */
+  .bpm-value    { color: #e9edef; text-shadow: 0 2px 10px rgba(255,71,87,0.25); }
+  .bpm-unit     { color: rgba(233,237,239,0.6); }
+  .reading-time { color: rgba(233,237,239,0.5); }
+
+  /* ── Watch status badge ── */
+  .watch-status {
+    background: rgba(0,168,132,0.18);
+    color: #00a884;
+    border-color: rgba(0,168,132,0.3);
+  }
+
+  /* ── Stress ── */
+  .stress-value       { color: #f59e0b; text-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+  .stress-description { color: rgba(233,237,239,0.55); }
+  .stress-bar         { background: rgba(255,255,255,0.07); }
+  .stress-fill        { background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%); box-shadow: 0 0 10px rgba(245,158,11,0.35); }
+
+  /* ── Health score ── */
+  .score-number { color: #00a884; }
+  .score-label  { background: linear-gradient(90deg, #00a884 0%, #00d4aa 100%); color: #fff; }
+
+  /* ── HRV face sub text ── */
+  .hrv-state-label { color: #e9edef; }
+  .hrv-state-sub   { color: rgba(233,237,239,0.4); }
+  .hrv-dot         { background: rgba(233,237,239,0.15); &.active { background: rgba(233,237,239,0.8); } }
+
+  /* ── Chart labels ── */
+  .chart-title  { color: #e9edef; }
+  .chart-labels { color: rgba(233,237,239,0.5); }
+  .time-labels  { color: rgba(233,237,239,0.5); }
+  .activity-labels { color: rgba(233,237,239,0.55); }
+
+  /* ── ion-content background ── */
+  ion-content { --background: #0b141a; }
+
+  /* ── Toolbar (dashboard header) ── */
+  ion-toolbar { --background: #1f2c34; --color: #e9edef; }
+}

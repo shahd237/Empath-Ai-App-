@@ -1,71 +1,218 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Empath AI</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="register-content">
+  <div class="register-wrapper" dir="rtl">
+    <!-- Header -->
+    <div class="logo">
+      <!-- <ion-icon name="leaf-outline"></ion-icon> -->
+      <div
+        id="lottie-container"
+        class="lottie-fullscreen"
+        style="width: 50%"
+      ></div>
+      <h2>رحلتك تبدأ من هنا</h2>
+      <p>ابدأ أول خطوة</p>
+      <ion-button
+        class="have-account-btn"
+        fill="outline"
+        [routerLink]="['/Login']"
+      >
+        تسجيل الدخول
+      </ion-button>
+    </div>
 
-<ion-content dir="rtl" style="text-align: right">
-  <div dir="rtl">
-    <h1>مرحباً بك في Empath AI</h1>
-    <p>أنشئ حساباً جديداً</p>
-
-    <ion-list>
-      <ion-item>
-        <ion-label>الاسم الأول</ion-label>
-        <ion-input type="text" placeholder="أدخل الاسم الأول"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>اسم العائلة</ion-label>
-        <ion-input type="text" placeholder="أدخل اسم العائلة"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>رقم الهاتف</ion-label>
-        <ion-input type="telephone" placeholder="ادخل رقم الهاتف"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>البريد الالكتروني</ion-label>
+    <!-- Form -->
+    <ion-list class="form-list">
+      <ion-item class="custom-input">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
         <ion-input
-          type="email"
-          placeholder="ادخل البريد الألكتروني"
+          type="text"
+          placeholder="الأسم الأول"
+          required
+          name="First_Name"
+          [(ngModel)]="user.First_Name"
+          (ionBlur)="setTouched('First_Name')"
         ></ion-input>
       </ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('First_Name')">
+        الرجاء إدخال الاسم الأول
+      </p>
 
-      <ion-item>
-        <ion-label>كلمة المرور</ion-label>
-        <ion-input type="password" placeholder="ادخل كلمة المرور"></ion-input>
+      <ion-item class="custom-input">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="اسم العائلة"
+          required
+          name="Last_Name"
+          [(ngModel)]="user.Last_Name"
+          (ionBlur)="setTouched('Last_Name')"
+        ></ion-input>
+      </ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Last_Name')">
+        الرجاء إدخال اسم العائلة
+      </p>
+
+      <ion-item class="custom-input">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="رقم الهاتف"
+          required
+          name="Phone"
+          [(ngModel)]="user.Phone"
+          (ionBlur)="setTouched('Phone')"
+        ></ion-input>
+      </ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Phone')">
+        الرجاء إدخال رقم الهاتف
+      </p>
+      <p class="error-msg" *ngIf="isPhoneInvalid()">
+        يرجى إدخال رقم هاتف صحيح (8-15 رقماً)
+      </p>
+
+      <ion-item class="custom-input">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input
+          type="email"
+          placeholder="البريد الإلكتروني"
+          required
+          name="Email"
+          [(ngModel)]="user.Email"
+          (ionBlur)="setTouched('Email')"
+        ></ion-input>
+      </ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Email')">
+        الرجاء إدخال البريد الإلكتروني
+      </p>
+      <p class="error-msg" *ngIf="isEmailInvalid()">
+        البريد الإلكتروني غير صالح
+      </p>
+
+      <ion-item class="custom-input">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input
+          [type]="showpassword ? 'text' : 'password'"
+          placeholder="كلمة المرور"
+          required
+          name="Password"
+          [(ngModel)]="user.Password"
+          (ionBlur)="setTouched('Password')"
+        ></ion-input>
+      </ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Password')">
+        الرجاء إدخال كلمة المرور
+      </p>
+
+      <!-- <ion-item class="custom-input">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input [type]="showConfirmPassword?'text':'password'" placeholder="تأكيد كلمة المرور" required name="Confirm_Password" [(ngModel)]="user.Confirm_Password"></ion-input>
+      </ion-item> -->
+      <ion-item class="custom-input">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          placeholder="تأكيد كلمة المرور"
+          required
+          name="Confirm_Password"
+          [(ngModel)]="user.Confirm_Password"
+          (ionBlur)="setTouched('Confirm_Password')"
+          (ionInput)="checkPasswordMatch()"
+        >
+        </ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-radio-group>
-          <ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Confirm_Password')">
+        الرجاء تأكيد كلمة المرور
+      </p>
+      <p class="error-msg" *ngIf="passwordError">كلمة المرور غير متطابقة</p>
+
+      <div class="gender-box">
+        <ion-radio-group
+          class="gender-group"
+          required
+          name="Gender"
+          [(ngModel)]="user.Gender"
+          (ionBlur)="setTouched('Gender')"
+        >
+          <ion-item class="custom-radio">
             <ion-label>ذكر</ion-label>
-            <ion-radio slot="end"></ion-radio>
+            <ion-radio slot="end" value="male"></ion-radio>
           </ion-item>
-          <ion-item>
-            <ion-label>انثى</ion-label>
-            <ion-radio slot="end"></ion-radio>
+
+          <ion-item class="custom-radio">
+            <ion-label>أنثى</ion-label>
+            <ion-radio slot="end" value="female"></ion-radio>
           </ion-item>
         </ion-radio-group>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>رقم الطواري</ion-label>
-        <ion-input type="telephone" placeholder="رقم الطواري"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>العمر</ion-label>
-        <ion-input type="number" placeholder="العمر"></ion-input>
-      </ion-item>
-
-      <div class="buttons">
-        <ion-button>
-          التالي
-          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
-        </ion-button>
       </div>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Gender')">
+        الرجاء اختيار النوع
+      </p>
+
+      <ion-item class="custom-input">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <ion-input
+          type="number"
+          placeholder=" العمر"
+          required
+          name="Age"
+          [(ngModel)]="user.Age"
+          (ionBlur)="setTouched('Age')"
+        ></ion-input>
+      </ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Age')">
+        الرجاء إدخال العمر
+      </p>
+
+      <ion-item class="custom-input">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="رقم الطواري"
+          required
+          name="Emergancy_Contact"
+          [(ngModel)]="user.Emergancy_Contact"
+          (ionBlur)="setTouched('Emergancy_Contact')"
+        ></ion-input>
+      </ion-item>
+      <p class="error-msg" *ngIf="isFieldRequiredError('Emergancy_Contact')">
+        الرجاء إدخال رقم الطوارئ
+      </p>
     </ion-list>
+
+    <p
+      class="error-msg"
+      *ngIf="formError"
+      style="text-align: center; margin-bottom: 8px"
+    >
+      {{ formError }}
+    </p>
+
+    <!-- Button -->
+    <ion-button
+      expand="block"
+      class="signup-btn"
+      [disabled]="
+        !user.First_Name ||
+        !user.Last_Name ||
+        !user.Phone ||
+        !user.Email ||
+        !user.Password ||
+        !user.Confirm_Password ||
+        !user.Gender ||
+        !user.Emergancy_Contact ||
+        !user.Age
+      "
+      (click)="Register()"
+    >
+      التالي
+    </ion-button>
   </div>
+
+  <!-- Custom Toast -->
+<div
+  class="custom-toast"
+  [ngClass]="{ 'success': toastType === 'success', 'error': toastType === 'error', 'show': toastVisible }"
+>
+  {{ toastMessage }}
+</div>
 </ion-content>

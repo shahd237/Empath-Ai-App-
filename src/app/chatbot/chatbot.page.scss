@@ -1,0 +1,275 @@
+/* ============================================================
+   chatbot.page.scss
+   Fix: ion-content uses Shadow DOM so we use :host-context
+   to reach body[data-theme='dark'] from inside the component
+   ============================================================ */
+
+* { padding: 0; margin: 0; box-sizing: border-box; }
+
+/* ══════════════════════════════════════
+   LIGHT MODE (default)
+══════════════════════════════════════ */
+
+.chat-header {
+  --background: #f6f4ee;
+  --color: #6d9573;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  ion-title { text-align: center; }
+}
+
+.chat-content {
+  --background: #f6f4ee;
+  direction: rtl;
+  padding: 8px 0;
+}
+
+.chat-container {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 100%;
+}
+.message.user { justify-content: flex-end; flex-direction: row-reverse; }
+.message.bot  { justify-content: flex-start; }
+
+.bubble {
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 70%;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.message.user .bubble {
+  background: #6d9573;
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.message.bot .bubble {
+  background: #ffffff;
+  color: #333;
+  border-radius: 18px 18px 18px 4px;
+}
+
+.avatar {
+  width: 34px; height: 34px; min-width: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+}
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: clamp(6px, 2vw, 10px);
+  gap: 8px;
+  border-radius: 20px;
+  margin: 8px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.04);
+}
+
+ion-input {
+  flex: 1;
+  font-size: clamp(13px, 3vw, 16px);
+  --padding-start: 12px;
+  background: #f6f4ee;
+  --background: #f6f4ee;
+  --color: #2c3e2c;
+  --placeholder-color: #7a8e7a;
+  border-radius: 20px;
+}
+
+ion-button {
+  --background: #6d9573;
+  --border-radius: 50%;
+  width: clamp(40px, 10vw, 50px);
+  height: clamp(40px, 10vw, 50px);
+}
+
+ion-button ion-icon[name="send"] { color: #fff; transform: rotate(180deg); font-size: 22px; }
+ion-button ion-icon[name="mic"],
+ion-button ion-icon[name="stop"] { color: #fff; font-size: 22px; }
+
+ion-footer {
+  position: sticky;
+  bottom: 0; z-index: 40;
+  background: #f6f4ee;
+  --background: #f6f4ee;
+}
+
+.bubble.typing-container {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 18px;
+  background: #f0f0f0;
+  border-radius: 24px;
+  width: max-content; max-width: 200px;
+}
+
+.typing-dots span {
+  width: 10px; height: 10px;
+  background: #4b4b4b;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.4s infinite ease-in-out;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%,80%,100% { transform: scale(0.4); opacity: 0.4; }
+  40%          { transform: scale(1);   opacity: 1; }
+}
+
+.typing-text { font-size: 15px; color: #2f6f5e; font-weight: 600; }
+
+.back-btn {
+  position: absolute; top: 4px; left: 20px;
+  width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  background: #f6f4ef;
+  border: 1.5px solid #6b8b6f;
+  color: #6b8b6f;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  ion-icon { font-size: 20px; }
+  &:hover { background: #6b8b6f; color: #f6f4ef; transform: scale(1.1); }
+}
+
+.start-screen {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: #f6f4ee;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  z-index: 999;
+}
+
+.plus-button {
+  position: relative;
+  width: 95px; height: 95px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6d9573, #88b38f);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 45px; color: white; cursor: pointer;
+  animation: pulse 1.5s infinite;
+  ion-icon { font-size: 50px; }
+  &::before, &::after {
+    content: ""; position: absolute;
+    width: 8px; height: 8px; background: #fffacd;
+    border-radius: 50%; opacity: 0.8;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    animation: sparkle 1.2s infinite;
+  }
+  &::after { width: 6px; height: 6px; background: #ffd700; animation-delay: 0.6s; }
+}
+
+@keyframes sparkle {
+  0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.8; }
+  50%  { transform: translate(calc(-50% + 30px),calc(-50% - 30px)) scale(1); opacity: 0; }
+  100% { transform: translate(-50%,-50%) scale(0); opacity: 0; }
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1);   box-shadow: 0 0 0 0 rgba(109,149,115,0.6); }
+  70%  { transform: scale(1.1); box-shadow: 0 0 0 35px rgba(109,149,115,0); }
+  100% { transform: scale(1); }
+}
+
+.start-text {
+  margin-top: 66px; font-size: 16px; color: #444; text-align: center;
+  span { color: #6d9573; font-weight: bold; }
+}
+
+@media (max-width: 480px) {
+  .bubble { font-size: 13px; padding: 10px 12px; }
+  ion-button { width: 40px; height: 40px; }
+  .bubble.typing-container { max-width: 150px; }
+}
+@media (min-width: 481px) and (max-width: 1024px) {
+  .bubble { font-size: 14px; }
+  ion-button { width: 48px; height: 48px; }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   DARK MODE
+   :host-context pierces Shadow DOM — works inside ion-content
+══════════════════════════════════════════════════════════ */
+
+:host-context(body[data-theme='dark']) {
+
+  .chat-header {
+    --background: #1f2c34;
+    --color: #e9edef;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  }
+
+  /* This is the key fix — sets ion-content background from inside */
+  .chat-content {
+    --background: #111b21;
+  }
+
+  .chat-container      { background: #111b21; }
+
+  .message.user .bubble {
+    background: #005c4b;
+    color: #d1f4cc;
+  }
+
+  .message.bot .bubble {
+    background: #1f2c34;
+    color: #e9edef;
+  }
+
+  .avatar              { border-color: rgba(255,255,255,0.1); }
+
+  .input-bar {
+    background: #1f2c34;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+
+  ion-input {
+    background: #2a3942;
+    --background: #2a3942;
+    --color: #e9edef;
+    --placeholder-color: #667781;
+  }
+
+  ion-button           { --background: #00a884; }
+
+  ion-footer {
+    background: #111b21;
+    --background: #111b21;
+  }
+
+  .bubble.typing-container { background: #1f2c34; }
+  .typing-dots span        { background: #00a884; }
+  .typing-text             { color: #00a884; }
+
+  .back-btn {
+    background: #1f2c34;
+    border-color: rgba(255,255,255,0.1);
+    color: #8696a0;
+    &:hover { background: #00a884; color: #fff; }
+  }
+
+  .start-screen        { background: #111b21; }
+  .plus-button         { background: linear-gradient(135deg, #005c4b, #00a884); }
+  .start-text          { color: #8696a0; span { color: #00a884; } }
+}

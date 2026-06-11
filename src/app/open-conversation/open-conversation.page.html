@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ conversation?.title || 'Conversation' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-page" padding>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <ion-spinner name="dots"></ion-spinner>
+  جاري تحميل المحادثة...
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="!loading && errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="!loading && messages.length > 0" class="chat-container">
+
+    <div *ngFor="let msg of messages"
+         [ngClass]="msg.sender_Type === 'User' ? 'user-row' : 'bot-row'">
+
+      <!-- Avatar -->
+      <div class="avatar">
+        <img *ngIf="msg.sender_Type === 'User'" src="https://th.bing.com/th/id/OIP.jixXH_Els1MXBRmKFdMQPAHaHa?w=211&h=211&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="user">
+        <img *ngIf="msg.sender_Type !== 'User'" src="data:image/webp;base64,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" alt="bot">
+      </div>
+
+      <!-- Message bubble -->
+      <div class="bubble">
+        {{ msg.content }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <!-- <div class="input-container">
+    <input [(ngModel)]="newMessage" placeholder="Type a message..." />
+    <button (click)="sendMessage()">Send</button>
+  </div> -->
+
+</ion-content>

@@ -1,0 +1,106 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>سجل المحادثات</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="history-page ion-padding">
+  <ion-button
+    expand="block"
+    fill="outline"
+    (click)="toggleArchive()"
+    class="encrypted-btn"
+  >
+    🔐 المحادثات المتشفرة
+    <ion-badge color="success" *ngIf="archived.length > 0">
+      {{ archived.length }}
+    </ion-badge>
+  </ion-button>
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" style="display:flex;justify-content:center;height:200px">
+    <ion-spinner name="circles"></ion-spinner>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage && !isLoading" style="padding:15px;background:#ffebee;border-radius:8px;color:#c62828;margin-bottom:15px">
+    <strong>❌ خطأ:</strong> {{ errorMessage }}
+    <ion-button fill="clear" size="small" (click)="loadConversationHistory()">إعادة محاولة</ion-button>
+  </div>
+
+  <!-- No Data -->
+  <div *ngIf="!isLoading && history.length===0 && !errorMessage" style="text-align:center;padding:40px 20px;color:#999">
+    <ion-icon name="chatbubbles-outline" style="font-size:48px;margin-bottom:10px;display:block;color:#ddd"></ion-icon>
+    <p>لا توجد محادثات حتى الآن</p>
+  </div>
+
+  <ion-button *ngIf="showArchive" fill="clear" (click)="Normal()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+    الرجوع للمحادثات العادية
+  </ion-button>
+
+  <!-- Conversations -->
+  <div *ngIf="!showArchive && !isLoading && history.length>0">
+    <div class="history-container">
+      <div class="history-card" *ngFor="let chat of history; let i=index" (click)="OpenConversation(chat.conversationId)">
+        
+        <!-- Title خارج الرسائل -->
+        <h2 class="conversation-title">{{ chat.title }}</h2>
+
+        <!-- Header with date and mood -->
+        <div class="history-top">
+          <div class="date-info">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span class="date">{{ chat.date }}</span>
+          </div>
+          <span class="mood">{{ chat.mood }}</span>
+        </div>
+
+
+     
+
+        <!-- Messages -->
+        <!-- <div class="message-box" *ngFor="let msg of chat.messages">
+          <p class="message">{{ msg.content || msg.message || msg.text }}</p>
+        </div> -->
+
+        <!-- Stress -->
+        <div class="stress-container">
+          <label>مستوى التوتر</label>
+          <div class="stress-bar">
+            <div class="stress-fill" [style.width.%]="chat.stress"></div>
+          </div>
+          <span class="stress-text">{{ chat.stress }}%</span>
+          <span class="sensor-info"> <ion-icon name="bluetooth-outline"></ion-icon> بلوتوث: متصل </span>
+        </div>
+
+        <!-- Actions -->
+        <div class="action">
+          <ion-button size="small" color="danger" (click)="deleteChat(i)" >
+            <ion-icon name="trash-outline"></ion-icon> حذف
+          </ion-button>
+          <ion-button size="small" color="success" (click)="archiveChat(i)">
+            <ion-icon name="archive-outline"></ion-icon> أرشفة
+          </ion-button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Archived -->
+  <div *ngIf="showArchive && !isLoading">
+    <ion-card *ngFor="let chat of archived; let i=index">
+      <ion-card-content>
+        <strong>{{ chat.date }}</strong><br />
+        {{ chat.message || chat.messages[0]?.content }}
+        <div style="margin-top:10px">
+          <ion-button size="small" color="success" (click)="unarchiveChat(i)">إلغاء التشفير</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content> 
+
+
+

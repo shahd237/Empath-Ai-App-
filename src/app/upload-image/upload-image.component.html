@@ -1,0 +1,149 @@
+<ion-content class="upload-page" dir="rtl">
+
+  <div class="animated-bg"></div>
+
+  <div class="centered-content">
+
+    <!-- Avatar -->
+    <div class="avatar-container" [class.uploading-ring]="uploadStatus === 'uploading'"
+      [class.success-ring]="uploadStatus === 'success'"
+      [class.error-ring]="uploadStatus === 'error'">
+
+      <div *ngIf="!image" class="default-avatar">
+        <ion-icon name="person-circle" class="avatar-icon"></ion-icon>
+      </div>
+      <div *ngIf="image" class="image-preview">
+        <img [src]="image" alt="Uploaded Image" class="uploaded-image"/>
+      </div>
+
+      <!-- Success overlay -->
+      <div class="status-overlay" *ngIf="uploadStatus === 'success'">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="upload-overlay">
+        <ion-button fill="clear" class="upload-btn" (click)="SelectImage()">
+          <ion-icon name="camera" slot="icon-only"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- ✅ Upload Status Panel -->
+    <div class="status-panel" *ngIf="uploadStatus !== 'idle'">
+
+      <!-- Steps -->
+      <div class="upload-steps">
+
+        <div class="step" [class.active]="uploadStatus === 'compressing'"
+          [class.done]="['uploading','success'].includes(uploadStatus)">
+          <div class="step-dot">
+            <span *ngIf="!['uploading','success'].includes(uploadStatus)">1</span>
+            <svg *ngIf="['uploading','success'].includes(uploadStatus)" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="step-label">ضغط الصورة</span>
+        </div>
+
+        <div class="step-line"
+          [class.done]="['uploading','success'].includes(uploadStatus)"></div>
+
+        <div class="step" [class.active]="uploadStatus === 'uploading'"
+          [class.done]="uploadStatus === 'success'">
+          <div class="step-dot">
+            <span *ngIf="uploadStatus !== 'success'">2</span>
+            <svg *ngIf="uploadStatus === 'success'" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="step-label">رفع الصورة</span>
+        </div>
+
+        <div class="step-line" [class.done]="uploadStatus === 'success'"></div>
+
+        <div class="step" [class.active]="uploadStatus === 'success'"
+          [class.error]="uploadStatus === 'error'">
+          <div class="step-dot">
+            <span *ngIf="uploadStatus !== 'success' && uploadStatus !== 'error'">3</span>
+            <svg *ngIf="uploadStatus === 'success'" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg *ngIf="uploadStatus === 'error'" viewBox="0 0 24 24" fill="none">
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="step-label">اكتمل</span>
+        </div>
+
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-track" *ngIf="uploadStatus === 'uploading' || uploadStatus === 'compressing'">
+        <div class="progress-fill" [style.width.%]="uploadProgress * 100"></div>
+        <span class="progress-pct">{{ (uploadProgress * 100).toFixed(0) }}%</span>
+      </div>
+
+      <!-- Status message -->
+      <p class="status-msg"
+        [class.msg-uploading]="uploadStatus === 'uploading' || uploadStatus === 'compressing'"
+        [class.msg-success]="uploadStatus === 'success'"
+        [class.msg-error]="uploadStatus === 'error'">
+        <span *ngIf="uploadStatus === 'compressing'">جارٍ ضغط الصورة...</span>
+        <span *ngIf="uploadStatus === 'uploading'">جارٍ رفع الصورة...</span>
+        <span *ngIf="uploadStatus === 'success'">تم الرفع بنجاح!</span>
+        <span *ngIf="uploadStatus === 'error'">حدث خطأ، حاول مرة أخرى</span>
+      </p>
+
+    </div>
+
+    <!-- Upload Button -->
+    <ion-button class="main-btn" fill="clear" (click)="SelectImage()"
+      [disabled]="uploadStatus === 'uploading' || uploadStatus === 'compressing'">
+      <ion-icon slot="start" name="camera-outline"></ion-icon>
+      رفع صورة
+    </ion-button>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+      <ion-button class="main-btn prev-btn" fill="clear" (click)="skip()">
+        تخطي <ion-icon slot="end" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="main-btn prev-btn" fill="clear" [routerLink]="['/register']">
+        السابق <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+  </div>
+
+  <!-- ✅ Custom Toast -->
+  <div class="custom-toast"
+    [class.show]="toastVisible"
+    [class.toast-success]="toastType === 'success'"
+    [class.toast-error]="toastType === 'error'">
+    <div class="toast-icon">
+      <svg *ngIf="toastType === 'success'" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M7 12.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg *ngIf="toastType === 'error'" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M12 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="17" r="1" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="toast-text">
+      <p class="toast-title">{{ toastMessage }}</p>
+      <p class="toast-sub">{{ toastSubMessage }}</p>
+    </div>
+    <div class="toast-bar"></div>
+  </div>
+
+</ion-content>

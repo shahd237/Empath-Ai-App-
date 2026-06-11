@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar class="chat-header">
+
+    <ion-title>Empath AI 🤖</ion-title>
+    
+    <button class="back-btn" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+   </button>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-content">
+       <!-- Start Screen -->
+  <div class="start-screen" *ngIf="showStartButton">
+
+    <div class="plus-button" (click)="startChat()">
+      <ion-icon name="add"></ion-icon>
+    </div>
+
+    <p class="start-text">
+      اضغط على <span>➕</span> لبدء محادثة مع <b>Empath-AI</b>
+    </p>
+
+  </div>
+  <div class="chat-container">
+    <!-- رسالة البوت -->
+  <div
+  class="message"
+  *ngFor="let msg of messages"
+  [ngClass]="msg.from === 'user' ? 'user' : 'bot'"
+>
+
+  <!-- Avatar -->
+  <img
+    class="avatar"
+    [src]="msg.from === 'user' ? userData?.image_URl : 'data:image/webp;base64,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'"
+  />
+
+  <!-- Bubble -->
+  <div class="bubble">
+    {{ msg.text }}
+  </div>
+
+</div>
+
+     <!-- typing يظهر بعد آخر رسالة -->
+   <!-- Bot Typing -->
+<div class="message bot" *ngIf="isBotTyping">
+  <div class="bubble typing-container">
+    <div class="typing-dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="typing-text">Typing</div>
+  </div>
+</div>
+
+  </div>
+</ion-content>
+
+
+<ion-footer>
+  <div class="input-bar" *ngIf="isCreateConversation">
+    <ion-input
+      placeholder="اكتب رسالتك هنا..."
+      [(ngModel)]="UserInput"
+      (ionInput)="onTyping()"
+      clearInput
+    >
+    </ion-input>
+
+    <!-- زر الإرسال -->
+    <ion-button *ngIf="UserInput?.trim()" (click)="sendMessage()">
+      <!--trim() function in JS if user write space return False in this case ngif userinput not space icon send show-->
+      <ion-icon name="send" slot="icon-only"></ion-icon>
+    </ion-button>
+
+    <!-- زر المايك -->
+    <ion-button
+      *ngIf="!UserInput?.trim()"
+      (click)="toggleRecording()"
+      (mousedown)="startRecording()"
+      (mouseup)="stopRecording()"
+      (touchstart)="startRecording()"
+      (touchend)="stopRecording()"
+    >
+      <!--trim()=> function in JS in this case if userinput write or not write space icon mic show-->
+
+      <ion-icon
+        name="mic"
+        [name]="isRecording ? 'stop' : 'mic'"
+        slot="icon-only"
+        style="color: #fff"
+      >
+      </ion-icon>
+    </ion-button>
+  </div>
+</ion-footer>

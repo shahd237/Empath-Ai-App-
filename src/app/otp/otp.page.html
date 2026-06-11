@@ -1,0 +1,60 @@
+<ion-content fullscreen class="otp-content" dir="ltr">
+
+  <div class="otp-container">
+    <!-- Success Overlay -->
+<div class="overlay success" *ngIf="isSuccess">
+  <div class="animation-box">
+    <svg viewBox="0 0 52 52">
+      <circle class="circle" cx="26" cy="26" r="25" />
+      <path class="check" d="M14 27l7 7 17-17" />
+    </svg>
+    <h2>تم التحقق بنجاح 🎉</h2>
+  </div>
+</div>
+
+<!-- Error Overlay -->
+<div class="overlay error" *ngIf="isError">
+  <div class="animation-box">
+    <svg viewBox="0 0 52 52">
+      <circle class="circle-error" cx="26" cy="26" r="25" />
+      <line x1="16" y1="16" x2="36" y2="36"/>
+      <line x1="36" y1="16" x2="16" y2="36"/>
+    </svg>
+    <h2>الكود غير صحيح ❌</h2>
+  </div>
+</div>
+
+
+    <div class="otp-card">
+
+      <h1 class="title">Empath-AI</h1>
+      <p class="email-sent">
+        📩 تم إرسال كود التحقق إلى بريدك الإلكتروني
+      </p>
+      <p class="subtitle">أدخل كود التحقق المكون من 6 أرقام</p>
+
+
+      <div class="otp-inputs">
+        <input
+          #otpInput
+          *ngFor="let box of otpArray; let i = index"
+          type="text"
+          maxlength="1"
+          inputmode="numeric"
+          (input)="onInput($event, i)"
+          (keydown)="onKeyDown($event, i)"
+        />
+      </div>
+
+      <button 
+       class="verify-btn" 
+       (click)="verifyOtp()" 
+       [disabled]="isSuccess || isError">
+       تأكيد
+      </button>
+
+    </div>
+
+  </div>
+
+</ion-content>

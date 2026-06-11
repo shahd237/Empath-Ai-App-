@@ -1,0 +1,258 @@
+
+
+<ion-content class="dashboard-page" fullscreen>
+  <div class="health-dashboard-container">
+
+    <!-- الخلفية المتحركة -->
+    <div class="animated-background">
+      <div class="gradient-sphere sphere-1"></div>
+      <div class="gradient-sphere sphere-2"></div>
+      <div class="gradient-sphere sphere-3"></div>
+      <div class="particles"></div>
+    </div>
+
+    <div class="dashboard-content">
+
+      <!-- الصف العلوي -->
+      <div class="top-row">
+
+        <!-- Last Reading -->
+        <div class="dashboard-card last-reading-card" style="margin-top: 9%;">
+          <div class="card-header">
+            <span class="card-title">Last Reading</span>
+            <div class="heart-icon-small">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff4757"/>
+              </svg>
+            </div>
+          </div>
+          <div class="bpm-display">
+            <div class="heart-icon-large">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff4757"/>
+              </svg>
+            </div>
+            <span class="bpm-value">82</span>
+            <span class="bpm-unit">BPM</span>
+          </div>
+          <div class="reading-time">10 mins ago</div>
+        </div>
+
+        <!-- الساعة الذكية في المنتصف -->
+        <div class="smart-watch-container">
+          <div class="watch-body">
+            <div class="watch-screen">
+              <div class="watch-heart-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff4757"/>
+                </svg>
+              </div>
+              <div class="watch-bpm">
+                <span class="watch-bpm-value">78</span>
+                <span class="watch-bpm-unit">BPM</span>
+              </div>
+              <div class="watch-status">NORMAL</div>
+            </div>
+            <div class="watch-crown"></div>
+            <div class="watch-button"></div>
+          </div>
+          <div class="watch-band-top"></div>
+          <div class="watch-band-bottom"></div>
+        </div>
+
+        <!-- Stress Level -->
+        <div class="dashboard-card stress-card">
+          <div class="card-header">
+            <span class="card-title">Stress Level</span>
+            <div class="stress-emoji">😟</div>
+          </div>
+          <div class="stress-value">High</div>
+          <div class="stress-description">Elevated Stress</div>
+          <div class="stress-bar">
+            <div class="stress-fill" style="width: 75%"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- الصف الأوسط -->
+      <div class="middle-row">
+
+        <!-- Health Score -->
+     <div class="dashboard-card health-score-card">
+     <div class="card-title centered">Health Score</div>
+     <div class="gauge-container">
+    <svg class="gauge-svg" viewBox="0 0 200 120">
+      <!-- الخلفية الرمادية للقوس -->
+      <path
+        d="M 20 100 A 80 80 0 0 1 180 100"
+        fill="none"
+        stroke="rgba(255,255,255,0.1)"
+        stroke-width="20"
+        stroke-linecap="round"
+      />
+
+      <!-- القوس المتدرج الملون -->
+      <defs>
+        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#00d4ff"/>
+          <stop offset="50%" stop-color="#00ff88"/>
+          <stop offset="100%" stop-color="#00ff88"/>
+        </linearGradient>
+      </defs>
+      <path
+        class="gauge-fill"
+        d="M 20 100 A 80 80 0 0 1 180 100"
+        fill="none"
+        stroke="url(#gaugeGradient)"
+        stroke-width="20"
+        stroke-linecap="round"
+        stroke-dasharray="251"
+        stroke-dashoffset="251"
+      />
+    </svg>
+
+    <div class="gauge-value">
+      <span class="score-number">86</span>
+      <div class="score-label">Good</div>
+    </div>
+  </div>
+</div>
+
+        <!-- Heart Rate Variability -->
+       <!-- Heart Rate Variability -->
+<div class="dashboard-card hrv-card">
+  <div class="card-title centered">Heart Rate Variability</div>
+
+  <div class="hrv-face-wrapper">
+    <svg #facesvg class="hrv-face-svg" viewBox="0 0 160 160">
+
+      <circle id="pulse-ring" #pulseRing
+        cx="80" cy="80" r="54"
+        fill="none" stroke-width="1.5"
+        [attr.stroke]="hrvColor"
+        [class]="hrvEmotion === 'angry' ? 'pulse-fast' : 'pulse-slow'"/>
+
+      <g #faceGroup [class]="'face-anim-' + hrvEmotion">
+
+        <circle #faceCircle
+          cx="80" cy="80" r="54"
+          stroke-width="2.5"
+          [attr.stroke]="hrvColor"
+          [attr.fill]="hrvFaceFill"/>
+
+        <line #browLeft
+          stroke-width="3" stroke-linecap="round"
+          [attr.stroke]="hrvColor"
+          [attr.x1]="brow.left.x1" [attr.y1]="brow.left.y1"
+          [attr.x2]="brow.left.x2" [attr.y2]="brow.left.y2"/>
+
+        <line #browRight
+          stroke-width="3" stroke-linecap="round"
+          [attr.stroke]="hrvColor"
+          [attr.x1]="brow.right.x1" [attr.y1]="brow.right.y1"
+          [attr.x2]="brow.right.x2" [attr.y2]="brow.right.y2"/>
+
+        <circle #eyeLeft
+          r="6" [attr.fill]="hrvColor"
+          [attr.cx]="eyes.left.cx" [attr.cy]="eyes.left.cy"/>
+        <circle
+          r="2" fill="white" opacity="0.85"
+          [attr.cx]="eyes.left.cx + 2" [attr.cy]="eyes.left.cy - 2"/>
+
+        <circle #eyeRight
+          r="6" [attr.fill]="hrvColor"
+          [attr.cx]="eyes.right.cx" [attr.cy]="eyes.right.cy"/>
+        <circle
+          r="2" fill="white" opacity="0.85"
+          [attr.cx]="eyes.right.cx + 2" [attr.cy]="eyes.right.cy - 2"/>
+
+        <ellipse
+          cx="62" r="2.5" ry="4"
+          [attr.fill]="hrvColor"
+          [attr.cy]="eyes.left.cy - 8"
+          [class]="hrvEmotion === 'sad' ? 'tear-1' : ''"
+          [attr.opacity]="hrvEmotion === 'sad' ? '0.7' : '0'"/>
+
+        <ellipse
+          cx="98" r="2.5" ry="4"
+          [attr.fill]="hrvColor"
+          [attr.cy]="eyes.right.cy - 8"
+          [class]="hrvEmotion === 'sad' ? 'tear-2' : ''"
+          [attr.opacity]="hrvEmotion === 'sad' ? '0.7' : '0'"/>
+
+        <path #mouthPath
+          stroke-width="4" fill="none" stroke-linecap="round"
+          [attr.stroke]="hrvColor"
+          [attr.d]="mouthD"/>
+
+      </g>
+    </svg>
+  </div>
+
+  <div class="hrv-state-label" [style.color]="hrvColor">{{ hrvLabel }}</div>
+  <div class="hrv-state-sub">{{ hrvSub }}</div>
+
+  <div class="hrv-dots">
+    <span *ngFor="let s of hrvStates; let i = index"
+      class="hrv-dot"
+      [class.active]="i === currentStateIndex"
+      (click)="setHrvState(i)">
+    </span>
+  </div>
+</div>
+
+      </div>
+
+      <!-- الصف السفلي - الرسوم البيانية -->
+      <div class="bottom-row">
+
+        <!-- Stress Over Time Chart -->
+        <div class="dashboard-card chart-card">
+          <div class="card-title chart-title">Stress Over Time</div>
+          <div class="chart-container">
+              <canvas
+              baseChart
+              [data]="stressChartData"
+              [type]="stressChartType"
+              [options]="stressChartOptions">
+             </canvas>
+            <div class="chart-labels">
+              <span class="label-low">Low</span>
+              <span class="label-high">High</span>
+            </div>
+          </div>
+          <div class="time-labels">
+            <span>6 AM</span>
+            <span>12 PM</span>
+            <span>6 PM</span>
+            <span>12 AM</span>
+          </div>
+        </div>
+
+        <!-- Heart Rate Trends Chart -->
+        <div class="dashboard-card chart-card">
+          <div class="card-title chart-title">Heart Rate Trends</div>
+          <div class="chart-container bar-chart">
+            <canvas
+              baseChart
+              [data]="heartRateChartData"
+              [type]="heartRateChartType"
+              [options]="heartRateChartOptions">
+            </canvas>
+          </div>
+          <div class="activity-labels">
+            <span class="activity-dot rest"></span>
+            <span>Rest</span>
+            <span class="activity-dot activity"></span>
+            <span>Activity</span>
+            <span class="activity-dot sleep"></span>
+            <span>Sleep</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</ion-content>

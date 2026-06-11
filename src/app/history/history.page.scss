@@ -1,0 +1,211 @@
+/* ─────────────────────────────
+   THEME VARIABLES
+───────────────────────────── */
+
+/* DARK THEME */
+:host-context(body[data-theme='dark']) {
+  --page-bg: #111b21;
+  --card-bg: #1f2c34;
+  --text-color: #ffffff;
+  --muted-color: #8696a0;
+  --primary: #00a884;
+  --border-color: rgba(255,255,255,.06);
+}
+
+/* LIGHT THEME */
+:host-context(body:not([data-theme='dark'])) {
+  --page-bg: #f6f7f9;
+  --card-bg: #ffffff;
+  --text-color: #111111;
+  --muted-color: #667781;
+  --primary: #2f6f5e;
+  --border-color: rgba(0,0,0,.06);
+}
+
+/* ─────────────────────────────
+   PAGE
+───────────────────────────── */
+
+.history-page {
+  background: var(--page-bg);
+}
+
+/* ─────────────────────────────
+   HEADER
+───────────────────────────── */
+
+ion-toolbar {
+  --background: var(--card-bg);
+  --color: var(--text-color);
+}
+
+ion-title {
+  text-align: center;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* ─────────────────────────────
+   BUTTON
+───────────────────────────── */
+
+.encrypted-btn {
+  --border-color: var(--primary);
+  --color: var(--primary);
+  margin-bottom: 18px;
+}
+
+/* ─────────────────────────────
+   CONTAINER
+───────────────────────────── */
+
+.history-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ─────────────────────────────
+   CARD
+───────────────────────────── */
+
+.history-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 16px;
+  transition: .25s;
+  color: var(--text-color);
+}
+
+.history-card:active {
+  transform: scale(.98);
+}
+
+/* ─────────────────────────────
+   TITLE
+───────────────────────────── */
+
+.conversation-title {
+  color: var(--text-color);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* ─────────────────────────────
+   TOP SECTION
+───────────────────────────── */
+
+.history-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.date-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted-color);
+  font-size: 13px;
+}
+
+.mood {
+  background: var(--primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ─────────────────────────────
+   STRESS BAR
+───────────────────────────── */
+
+.stress-container {
+  margin-bottom: 18px;
+}
+
+.stress-container label {
+  display: block;
+  color: var(--muted-color);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.stress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(128,128,128,.2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.stress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.stress-text {
+  display: block;
+  margin-top: 6px;
+  color: var(--primary);
+  font-size: 12px;
+}
+
+/* ─────────────────────────────
+   ACTIONS
+───────────────────────────── */
+
+.action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.action ion-button {
+  --border-radius: 20px;
+}
+
+/* ─────────────────────────────
+   ION CARD OVERRIDE
+───────────────────────────── */
+
+ion-card {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+ion-card-content {
+  color: var(--text-color);
+}
+
+/* ─────────────────────────────
+   SPINNER
+───────────────────────────── */
+
+ion-spinner {
+  color: var(--primary);
+}
+
+/* ─────────────────────────────
+   SENSOR INFO
+───────────────────────────── */
+
+.sensor-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted-color);
+}
+
+.sensor-info ion-icon {
+  font-size: 13px;
+}

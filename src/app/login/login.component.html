@@ -1,0 +1,75 @@
+<ion-content class="signup-content">
+
+  <div class="logo">
+    <ion-icon name="leaf-outline"></ion-icon>
+  </div>
+
+  <h2>تسجيل الدخول</h2>
+  <p>مرحبا بعودتك مرة أخري في Empath AI</p>
+
+  <ion-list lines="none" style="margin-top: 80px;">
+
+    <ion-item class="input-item" [ngClass]="{'error-input': loginError}" (ionInput)="clearError()">
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-input placeholder="البريد الالكتروني" required name="Email" [(ngModel)]="login.Email"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item" [ngClass]="{'error-input': loginError}" (ionInput)="clearError()">
+      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      <ion-input type="password" placeholder="كلمة المرور" required [(ngModel)]="login.Password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-button expand="block" class="signup-btn"
+    [disabled]="!login.Email || !login.Password"
+    (click)="Login()">
+    تسجيل الدخول
+  </ion-button>
+
+  <a [routerLink]="['/forget']" style="color: gray;">هل نسيت كلمة المرور</a>
+
+  <div class="divider"><span>أو</span></div>
+
+  <div class="social-icons">
+    <ion-icon name="logo-facebook" ></ion-icon>
+    <ion-icon name="logo-google"   ></ion-icon>
+  </div>
+
+  <p class="signin-text">
+    ليس لديك حساب؟
+    <span [routerLink]="['/register']">انشاء حساب</span>
+  </p>
+
+  <!-- ✅ Custom Toast -->
+  <div class="custom-toast"
+    [class.show]="toastVisible"
+    [class.toast-success]="toastType === 'success'"
+    [class.toast-error]="toastType === 'error'">
+
+    <div class="toast-icon">
+      <svg *ngIf="toastType === 'success'" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M7 12.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg *ngIf="toastType === 'error'" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M12 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="17" r="1" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="toast-text">
+      <p class="toast-title">{{ toastMessage }}</p>
+      <p class="toast-sub">{{ toastSubMessage }}</p>
+    </div>
+
+    <div class="toast-bar"></div>
+  </div>
+
+</ion-content>
+
+
+
+
